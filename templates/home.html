@@ -1,22 +1,89 @@
 <html>
-   <body>
-       <div class="login">
-          <h1>Recommendation System</h1>
+  <head>
+      <style>
+          body {
+              font-family: Arial, sans-serif;
+              margin: 0;
+              padding: 20px;
+              background-color: #f4f4f4;
+          }
+          .login {
+              max-width: 600px;
+              margin: 0 auto;
+              padding: 20px;
+              background-color: white;
+              border-radius: 5px;
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          }
+          h1 {
+              text-align: center;
+              color: #333;
+          }
+          .form-label {
+              display: block;
+              margin-bottom: 5px;
+              font-weight: bold;
+          }
+          .form-control {
+              width: 100%;
+              padding: 8px;
+              margin-bottom: 10px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+          }
+          .btn-primary {
+              background-color: #007bff;
+              color: white;
+              padding: 10px 20px;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+          }
+          .btn-primary:hover {
+              background-color: #0056b3;
+          }
+          h2 {
+              margin-top: 20px;
+              color: #333;
+          }
+          ul {
+              list-style-type: none;
+              padding: 0;
+          }
+          li {
+              padding: 5px 0;
+              color: #555;
+          }
+      </style>
+  </head>
+  <body>
+      <div class="login">
+          <h1>MovieLens Recommendation System</h1>
       
           <form action="{{ url_for('predict_datapoint')}}" method="post">
-           <h1>
-               <legend>Get Recommendations</legend>
-           </h1>
-           <div class="mb-3">
-               <label class="form-label">User ID</label>
-               <input class="form-control" type="number" name="user_id" placeholder="Enter your User ID" required />
-           </div>
-           <div class="mb-3">
-               <input class="btn btn-primary" type="submit" value="Get Recommendations" required />
-           </div>
-       </form>
-       <h2>
-          Recommended Items: {{results}}
-       </h2>
-      </body>
-   </html>
+              <h1>
+                  <legend>Get Movie Recommendations</legend>
+              </h1>
+              <div class="mb-3">
+                  <label class="form-label">User ID (1-943)</label>
+                  <input class="form-control" type="number" name="user_id" placeholder="Enter your User ID" min="1" max="943" required />
+              </div>
+              <div class="mb-3">
+                  <input class="btn btn-primary" type="submit" value="Get Recommendations" required />
+              </div>
+          </form>
+          <h2>
+              Recommended Movies:
+          </h2>
+          <ul>
+              {% if results %}
+                  {% for movie in results %}
+                      <li>{{ movie }}</li>
+                  {% endfor %}
+              {% else %}
+                  <li>No recommendations available yet.</li>
+              {% endif %}
+          </ul>
+      </div>
+  </body>
+  </html>

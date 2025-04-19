@@ -12,10 +12,12 @@ class TrainPipeline:
         transformation = DataTransformation()
         train_data, test_data = transformation.initiate_data_transformation(train_path, test_path)
         trainer = ModelTrainer()
-        rmse = trainer.initiate_model_trainer(train_data, test_data)
-        return rmse
+        rmse, precision, recall = trainer.initiate_model_trainer(train_data, test_data)
+        return rmse, precision, recall
 
 if __name__ == "__main__":
     pipeline = TrainPipeline()
-    rmse = pipeline.main()
+    rmse, precision, recall = pipeline.main()
     print(f"Best model RMSE: {rmse}")
+    print(f"Precision@5: {precision}")
+    print(f"Recall@5: {recall}")
