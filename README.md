@@ -1,49 +1,52 @@
 🎥 MovieLens 100k Recommendation System
 🌟 Project Overview
-This project builds a Recommendation System for movies using the MovieLens 100k dataset, driven by a passion to help movie enthusiasts discover films they’ll love! 💖 The system leverages collaborative filtering to recommend movies based on user ratings, predicting preferences through a web app built with Flask. Users can input their user_id and get personalized movie suggestions instantly.
-🎯 Purpose
-I created this project to explore how machine learning can enhance personalized movie discovery, making it easier for users to find films that match their tastes. The goal was to build an efficient system that balances accuracy and usability, delivering relevant recommendations through a user-friendly interface.
-📋 Objectives
+This project develops a Recommendation System for movies using the MovieLens 100k dataset. The goal is to recommend movies to users based on collaborative filtering, leveraging user ratings to predict preferences. The system is built as a web application using Flask, allowing users to input a user_id and receive personalized movie recommendations.
+I created this project to help movie enthusiasts discover films tailored to their tastes, addressing the challenge of finding relevant movies in a vast catalog. By using collaborative filtering, the system learns from user behavior to suggest movies they’re likely to enjoy, enhancing their viewing experience.
+🎯 Objectives
 
-Build a system to predict the top-N movies for a user based on their ratings. 🔍
-Evaluate performance using RMSE, precision@5, and recall@5 metrics. 📊
-Create a user-friendly web interface for seamless interaction. 🌐
-Ensure robust code with error handling, logging, and modularity. 💻
+Build a recommendation system that predicts top-N movies for a given user. 🔍
+Evaluate model performance using metrics like RMSE, precision@5, and recall@5. 📊
+Provide a user-friendly web interface to interact with the recommendation system. 🌐
+Ensure the codebase is robust with proper error handling, logging, and modularity. 💻
 
 📂 Dataset
-The dataset used is the MovieLens 100k dataset, sourced from the GroupLens Research Project at the University of Minnesota. It includes 100,000 ratings from 943 users on 1,682 movies, with ratings from 1 to 5.
+The dataset used is the MovieLens 100k dataset, sourced from the GroupLens Research Project at the University of Minnesota. It contains 100,000 ratings from 943 users on 1,682 movies, with ratings ranging from 1 to 5.
 
 Source: GroupLens MovieLens 100k Dataset 🌍
-Download Location: Manually downloaded and extracted to notebook/data/ml-100k/.
-Key Files:
-u.data: User ratings (user_id, item_id, rating, timestamp).
-u.item: Movie metadata (item_id, movie_title, etc.).
+Link: https://grouplens.org/datasets/movielens/100k/
 
 
-Preprocessing: Split into 80% training and 20% test sets, saved as artifacts/train.csv and artifacts/test.csv, with the full dataset saved as artifacts/ratings.csv.
+Location: The dataset is stored in notebook/data/ml-100k/, with key files:
+u.data: User ratings (format: user_id, item_id, rating, timestamp).
+u.item: Movie metadata (format: item_id, movie_title, etc.).
 
+
+
+The data was split into training (80%) and test (20%) sets, saved as artifacts/train.csv and artifacts/test.csv, with the full dataset saved as artifacts/ratings.csv.
 🤖 Machine Learning Models
-I used the surprise library for collaborative filtering, selecting two models: SVD and KNNBaseline.
+We used the surprise library for collaborative filtering, implementing two models:
 
-SVD (Singular Value Decomposition): A matrix factorization technique that decomposes the user-item rating matrix into latent factors, capturing hidden patterns in user preferences.
-KNNBaseline: A k-Nearest Neighbors approach with baseline ratings to account for user and item biases, focusing on item-based similarity.
+SVD (Singular Value Decomposition): A matrix factorization technique that decomposes the user-item rating matrix into latent factors.
+KNNBaseline: A k-Nearest Neighbors approach with baseline ratings to account for user and item biases.
 
-Why These Algorithms? 🎓
-I chose SVD and KNNBaseline because they are well-suited for collaborative filtering tasks like movie recommendations:
+Purpose and Why These Algorithms? 🎓
+I chose SVD and KNNBaseline for their proven effectiveness in collaborative filtering tasks:
 
-SVD: Ideal for capturing latent factors in sparse datasets like MovieLens 100k, where users rate only a small subset of movies. It excels at predicting ratings (low RMSE) and generalizing user preferences, making it a strong choice for personalized recommendations.
-KNNBaseline: Effective for leveraging item similarity, especially with baseline adjustments to account for user and item biases. It’s intuitive for recommending movies similar to those a user has liked, complementing SVD’s approach.
+SVD excels at uncovering latent patterns in user preferences, making it ideal for sparse datasets like MovieLens 100k, where users rate only a small fraction of movies. It provides accurate rating predictions, which is crucial for reliable recommendations.
+KNNBaseline leverages item similarity with baseline adjustments, ensuring recommendations are based on movies similar to those a user already likes, adding diversity to the suggestions.
 
-Despite other ML algorithms (e.g., neural networks, content-based methods), I prioritized SVD and KNNBaseline because they are lightweight, interpretable, and well-documented for collaborative filtering, balancing performance and implementation simplicity.
+Despite many ML algorithms available (e.g., neural networks, content-based methods), SVD and KNNBaseline were ideal because they are lightweight, interpretable, and well-suited for collaborative filtering, offering a balance of performance and simplicity for this project.
 ⚙️ Hyperparameter Tuning
-Initially, I used default parameters, but later tuned them to boost recommendation quality:
+Initially, we used default parameters for both models, but later tuned them to improve recommendation quality:
 
 SVD:
+
 Tuned Parameters: n_factors=100, n_epochs=20, lr_all=0.005, reg_all=0.02
 These control the number of latent factors, training iterations, learning rate, and regularization strength.
 
 
 KNNBaseline:
+
 Tuned Parameters: k=40, sim_options={'name': 'pearson_baseline', 'user_based': False}
 These set the number of neighbors, use Pearson baseline similarity, and focus on item-based filtering.
 
@@ -66,13 +69,7 @@ Recall@5: 0.0202 (improved to 2.02%, capturing more relevant items) ✅
 
 
 
-The tuning significantly enhanced the ranking quality for top-N recommendations, though precision@5 and recall@5 remain low, indicating potential for further optimization (e.g., GridSearchCV or hybrid models).
-🏆 Achievements
-
-Built a functional recommendation system that delivers personalized movie suggestions. 🎉
-Created a user-friendly Flask web app for easy interaction. 🌐
-Improved recommendation quality through hyperparameter tuning, increasing precision@5 from 0.24% to 6.3%. 📈
-Developed a robust codebase with error handling, logging, and modularity. 💻
+The tuning significantly enhanced the ranking quality for top-N recommendations, making them more relevant to users, though there’s still room for improvement.
 
 🚀 How to Run
 
